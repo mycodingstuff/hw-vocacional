@@ -19,3 +19,21 @@ body {
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+.message {
+  max-width: 80%;
+}
+.message p {
+  margin-top: 10px;
+}
+.message ol,
+.message ul {
+  list-style-type: decimal;
+  margin: 10px 0;
+  padding-left: 25px;
+}
+
+.message ul {
+  list-style-type: disc;
+}
+
