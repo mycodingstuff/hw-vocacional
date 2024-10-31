@@ -1,0 +1,275 @@
+{
+    "Name": {
+        "PossibleQuestion": "What is your name?"
+    },
+    "Location": {
+        "PossibleQuestion": "Awesome to meet you, [Name]! Where are you from?"
+    },
+    "Gender": {
+        "PossibleQuestion": "I'd also like to know, how do you identify in terms of gender? Feel free to share however you're comfortable!"
+    },
+    "Economy":{
+        "PossibleQuestion": [
+            "For us to provide the best career guidance, it helps to know if there are any financial limitations that you'd like me to keep in mind when suggesting future educational paths.",
+            "Do you have any concerns or limitations around financing your education?",
+            "Will you be able to dedicate yourself 100% to your university career, or would you need to balance studying with working?"
+        ]
+    },
+
+    "CognitiveSkills": {
+        "ProblemSolving": {
+            "PossibleQuestion": "I love figuring out different ways to solve challenging problems. Are you like that too?"
+        },
+        "AnalyticalSkills": {
+            "PossibleQuestion": "When I come across something new, I like to break it down into smaller pieces to get a better grasp. Does that sound like you?"
+        },
+        "MathematicalAbilities": {
+            "PossibleQuestion": "Numbers and logic puzzles? Oh yeah, bring them on! Do you feel the same?"
+        },
+        "CriticalThinking": {
+            "PossibleQuestion": "Before believing something, I always look for proof or think it through. Do you do that too?"
+        },
+        "Creativity": {
+            "PossibleQuestion": "Coming up with new ideas or designs is my jam! Is that how you roll too?"
+        },
+        "LogicalReasoning": {
+            "PossibleQuestion": "I like figuring out how things work or understanding the logic behind them. Does that sound like you?"
+        },
+        "AttentionToDetail": {
+            "PossibleQuestion": "I'm the type who spots even the tiniest details and makes sure everything is accurate. Are you the same way?"
+        },
+        "CuriosityAndLearning": {
+            "PossibleQuestion": "When I'm learning something new, I like exploring and experimenting on my own. Is that how you learn too?"
+        },
+        "InnovationAndExperimentation": {
+            "PossibleQuestion": "I get excited about trying out new ideas or improving things. Are you into that?"
+        },
+        "SimplifyingConcepts": {
+            "PossibleQuestion": "When I understand something complicated, I like to explain it to others in a simple way. Do you do that too?"
+        }
+    },
+    "Interests": {
+        "SportsAndPhysicalActivities": {
+            "PossibleQuestion": "I love staying active, whether it's playing sports, hiking, or hitting the gym. Do you enjoy being active too?"
+        },
+        "CreativeHobbies": {
+            "PossibleQuestion": "Creating something unique, like painting, drawing, or making music, is my favorite way to relax. Do you feel the same?"
+        },
+        "ReadingAndWriting": {
+            "PossibleQuestion": "I get lost in a good book or enjoy writing stories or poems when I have free time. Are you like that too?"
+        },
+        "GamingAndTechnology": {
+            "PossibleQuestion": "Playing video games and exploring new tech is super exciting for me. Does that sound like something you'd enjoy?"
+        },
+        "HelpingAndVolunteering": {
+            "PossibleQuestion": "I find it rewarding to help others or volunteer in my community. Do you like doing things like that?"
+        },
+        "BuildingAndTinkering": {
+            "PossibleQuestion": "I like working with my hands, whether it's building, fixing things, or trying out new gadgets. Is that something you're into?"
+        },
+        "ExploringNatureAndTraveling": {
+            "PossibleQuestion": "I love being outdoors, exploring nature, or visiting new places. Do you feel the same way?"
+        },
+        "CodingAndTechnologyProjects": {
+            "PossibleQuestion": "Creating things with code or working on tech projects is a lot of fun for me. Are you like that too?"
+        },
+        "SocializingAndLeadingGroups": {
+            "PossibleQuestion": "I enjoy spending time with friends, organizing activities, and taking the lead in group projects. Does that sound like you?"
+        },
+        "LearningAndExperimenting": {
+            "PossibleQuestion": "I love exploring new things, whether it's trying new recipes, learning new skills, or experimenting with something cool. Are you into that too?"
+        }
+    },
+    "SoftSkills": {
+        "Leadership": {
+            "PossibleQuestion": "When there's a group project, I like taking the lead and organizing things. Are you like that too?"
+        },
+        "Empathy": {
+            "PossibleQuestion": "I'm good at understanding how others are feeling and offering support when they need it. Do you do that too?"
+        },
+        "Teamwork": {
+            "PossibleQuestion": "Working with others to reach a common goal is something I enjoy. Does that sound like you?"
+        },
+        "AttentionToDetail": {
+            "PossibleQuestion": "I pay close attention to details and like making sure everything is just right. Is that your style too?"
+        },
+        "Adaptability": {
+            "PossibleQuestion": "I'm usually good at adjusting to changes or new situations without getting too stressed. Can you relate to that?"
+        },
+        "Patience": {
+            "PossibleQuestion": "I'm pretty patient and can stay calm when things don't go as planned. Is that how you are too?"
+        },
+        "CommunicationSkills": {
+            "PossibleQuestion": "I'm comfortable talking with people and expressing my ideas clearly. Are you like that too?"
+        },
+        "ProblemSolvingInGroups": {
+            "PossibleQuestion": "I enjoy working with others to find solutions when there's a problem. Does that sound like something you'd do?"
+        },
+        "CreativityInTeamSetting": {
+            "PossibleQuestion": "I like bringing new ideas to the table and brainstorming with a group. Do you do that too?"
+        },
+        "TimeManagementAndPlanning": {
+            "PossibleQuestion": "I'm good at planning my time and staying organized, even when there's a lot going on. Are you like that too?"
+        }
+    },
+    "FavoriteSubjects": {
+        "Mathematics": {
+            "PossibleQuestion": "I find solving math problems and working with numbers super interesting. Do you feel the same way?"
+        },
+        "Literature": {
+            "PossibleQuestion": "Reading stories, poems, and exploring different kinds of books is something I love. Are you into that too?"
+        },
+        "Physics": {
+            "PossibleQuestion": "I'm fascinated by how physics explains how the world works, like gravity and electricity. Do you enjoy learning about that too?"
+        },
+        "Biology": {
+            "PossibleQuestion": "Understanding living things and how they function is really cool to me. Does that sound like something you enjoy?"
+        },
+        "History": {
+            "PossibleQuestion": "I love learning about events from the past and how they shaped our world today. Do you find history interesting too?"
+        },
+        "Arts": {
+            "PossibleQuestion": "I enjoy expressing myself through drawing, painting, or creating art in different ways. Are you like that too?"
+        },
+        "ComputerScience": {
+            "PossibleQuestion": "I'm interested in understanding how computers work and learning to code. Do you enjoy that as well?"
+        },
+        "Chemistry": {
+            "PossibleQuestion": "Mixing things up in chemistry and discovering reactions fascinates me. Do you feel the same?"
+        },
+        "Economics": {
+            "PossibleQuestion": "I like exploring how money, markets, and the economy work. Does that sound like something you enjoy learning about?"
+        },
+        "ForeignLanguages": {
+            "PossibleQuestion": "I love learning new languages and discovering different cultures. Are you into that too?"
+        }
+    },
+    "WorkPreferences": {
+        "GroupWork": {
+            "PossibleQuestion": "I enjoy working in a team where everyone shares ideas and works together. Is that your thing too?"
+        },
+        "IndependentWork": {
+            "PossibleQuestion": "Sometimes, I like working on my own where I can focus and do things at my own pace. Are you like that too?"
+        },
+        "IndoorVsOutdoor": {
+            "PossibleQuestion": "Being outside in nature or working in an active environment sounds great to me. Do you prefer that too?"
+        },
+        "FlexibilityVsRoutine": {
+            "PossibleQuestion": "I like having a set routine where I know what to expect each day. Do you feel the same way?"
+        },
+        "DynamicAndFastPacedWork": {
+            "PossibleQuestion": "I like fast-paced environments where things are always changing. Does that sound exciting to you?"
+        },
+        "HandlingStressfulSituations": {
+            "PossibleQuestion": "When things get busy or stressful, I’m usually good at staying calm and focused. Are you like that too?"
+        },
+        "CreativeFreedom": {
+            "PossibleQuestion": "I enjoy having creative freedom to experiment and try new approaches in my work. Does that sound like your style?"
+        },
+        "StructuredEnvironment": {
+            "PossibleQuestion": "I prefer working in a structured environment with clear rules and expectations. Do you feel the same?"
+        },
+        "HandsOnVsTheoretical": {
+            "PossibleQuestion": "I like learning by doing things hands-on rather than just reading or studying theories. Are you like that too?"
+        },
+        "LongTermPlanningVsShortTermGoals": {
+            "PossibleQuestion": "I like setting long-term goals and working steadily towards them. Is that how you approach things too?"
+        }
+    },
+    "EconomicConstraints": {
+        "FullTimeStudyCommitment": {
+            "PossibleQuestion": "I want to fully focus on my studies without having to worry about working. Is that what you’re planning too?"
+        },
+        "BalancingWorkAndStudy": {
+            "PossibleQuestion": "I might need to work part-time while I study to help with expenses. Are you thinking the same?"
+        },
+        "FlexibleStudyOptions": {
+            "PossibleQuestion": "Flexible study options like online courses or evening classes sound like a good idea to me. Do you feel the same?"
+        },
+        "ScholarshipsAndFinancialAid": {
+            "PossibleQuestion": "I’m interested in exploring scholarships or financial aid to support my education. Is that something you’re looking into as well?"
+        },
+        "CostEffectiveEducationChoices": {
+            "PossibleQuestion": "Keeping my education costs low is important to me. Are you thinking about that too?"
+        },
+        "InternshipsAndEarningExperience": {
+            "PossibleQuestion": "Gaining experience through internships or part-time work while studying sounds like a smart move to me. Do you agree?"
+        },
+        "SavingMoneyWhileStudying": {
+            "PossibleQuestion": "I’m planning to find ways to save money while I study, like choosing budget-friendly options. Are you thinking the same?"
+        },
+        "TimeAvailabilityForFullTimeCourses": {
+            "PossibleQuestion": "I have the time to commit to a full-time course load without needing a job on the side. Does that sound like you?"
+        },
+        "ExploringPaidTrainingPrograms": {
+            "PossibleQuestion": "Paid training programs or apprenticeships that let me earn while I learn seem like a good idea. Do you agree?"
+        },
+        "SupportFromFamily": {
+            "PossibleQuestion": "I have some financial support from my family to help with my education. Do you have that too?"
+        }
+    },
+    "LearningStyle": {
+        "HandsOnProjects": {
+            "PossibleQuestion": "I learn best when I can work on hands-on projects and actually create something. Is that how you like to learn too?"
+        },
+        "ClassroomVsLabBasedLearning": {
+            "PossibleQuestion": "I enjoy learning in workshops or labs where I can experiment and test things out. Do you feel the same?"
+        },
+        "ReadingAndUnderstandingTheories": {
+            "PossibleQuestion": "I’m comfortable with reading and understanding theories or concepts from books. Are you like that too?"
+        },
+        "LearningByDoing": {
+            "PossibleQuestion": "I prefer learning by doing, like working on real-world problems or building things myself. Does that sound like you?"
+        },
+        "ExperimentingAndExploring": {
+            "PossibleQuestion": "I enjoy experimenting with new ideas or trying different ways to solve problems. Are you into that?"
+        },
+        "StructuredLearningInAClassroom": {
+            "PossibleQuestion": "I like structured classes where I can learn things step-by-step with clear explanations. Do you prefer that too?"
+        },
+        "LearningThroughProjectsAndCaseStudies": {
+            "PossibleQuestion": "I find learning through projects and case studies more engaging than just studying from textbooks. Does that describe you?"
+        },
+        "StudyingTheoreticalConceptsInDepth": {
+            "PossibleQuestion": "I enjoy digging deep into theoretical concepts and understanding all the details. Do you feel the same way?"
+        },
+        "CreativeAndPracticalProblemSolving": {
+            "PossibleQuestion": "I like thinking creatively to solve problems and using what I learn in practical ways. Are you like that too?"
+        },
+        "DirectApplicationOfKnowledge": {
+            "PossibleQuestion": "It’s important for me to be able to directly apply what I learn to real-life situations. Does that sound like you?"
+        }
+    },
+    "TechnologicalAffinity": {
+        "InterestInProgramming": {
+            "PossibleQuestion": "I enjoy creating things with code, like building apps or websites. Do you like doing that too?"
+        },
+        "ExploringNewTechGadgets": {
+            "PossibleQuestion": "I get excited when I get to try out new tech gadgets or tools. Does that sound like you?"
+        },
+        "ArtificialIntelligence": {
+            "PossibleQuestion": "I find it really cool to learn about AI and how computers can learn and make decisions. Are you interested in that too?"
+        },
+        "TinkeringWithComputers": {
+            "PossibleQuestion": "I like exploring how computers work and even building or upgrading them myself. Are you like that?"
+        },
+        "KeepingUpWithTechTrends": {
+            "PossibleQuestion": "I enjoy staying up-to-date with the latest tech trends and new innovations. Does that sound like you?"
+        },
+        "CuriosityAboutCybersecurity": {
+            "PossibleQuestion": "I’m curious about cybersecurity and how to protect information and systems from hackers. Are you interested in that too?"
+        },
+        "GameDevelopment": {
+            "PossibleQuestion": "I love playing video games and I’m interested in how they’re made. Is that something you’re into as well?"
+        },
+        "DataAndAnalytics": {
+            "PossibleQuestion": "I find it fascinating to analyze data and find patterns to understand things better. Do you like doing that too?"
+        },
+        "ExploringRobotics": {
+            "PossibleQuestion": "I think robotics is amazing, and I’m interested in how robots can be programmed to do different tasks. Are you into that?"
+        },
+        "TechCreativityAndInnovation": {
+            "PossibleQuestion": "I enjoy using technology to come up with creative solutions to problems. Does that sound like you?"
+        }
+    }
+}
