@@ -60,7 +60,7 @@ export default function Chat() {
   return (
 
     <div className="flex gap-2">
-      {studentProfile && (
+      {/* {studentProfile && (
         <div className='w-[40%] flex flex-col h-screen'>
           <h2 className='text-white text-xl font-bold mb-4'>Profile Evaluation</h2>
           <div className='flex-1 overflow-y-auto custom-scrollbar'>
@@ -75,7 +75,7 @@ export default function Chat() {
             ))}
           </div> */}
         </div>
-      )}
+      )} */}
       <div className='mx-auto w-full'>
         <div className="flex flex-col h-screen">
           <div className="flex-1 overflow-y-auto p-4 custom-scrollbar" ref={specificDivRef}>
