@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client'
 
 import { useState, useEffect, useRef } from 'react'
@@ -39,7 +40,7 @@ export default function Chat() {
     if (input.trim() === '') return;
 
     setIsTyping(true)
-    let messagesCopy = [...messages];
+    const messagesCopy = [...messages];
     messagesCopy.push({ id: crypto.randomUUID(), role: "user", content: `<p>${input}</p>`});
     setMessages(messagesCopy);
     setInput('');
