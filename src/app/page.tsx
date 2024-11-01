@@ -142,7 +142,7 @@ export default function Chat() {
       )}
       <div className='mx-auto w-full'>
         <div className="flex flex-col h-screen">
-          <header className='flex justify-between items-start p-4 bg-transparent xl:fixed top-0 w-full mb-1 sm:mb-0 md:mb-[-100px]'>
+          <header className='flex justify-between items-start p-4 bg-transparent xl:fixed top-0 w-full mb-1 sm:mb-0 md:mb-[-10px]'>
             <div>
               <div className="hidden sm:block">
                 <Image 
