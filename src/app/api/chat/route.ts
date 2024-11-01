@@ -168,7 +168,8 @@ async function handleConversation(messages: any, question: string, studentProfil
         'text': "User answer: " + userAnswer +
             "\n\nPlease answer to the user by adding this question: [" + question + "]\n" +
             "If the question is personal (gender, economic situation), be careful with the tone and try to avoid being too intrusive." +
-            "Remember you are talking with the student, be as short and concise as possible. Respond with normal text in markdown format. but omit any json or system details. Be brief."
+            "Remember you are talking with the student, be as short and concise as possible. Respond with normal text in markdown format."+
+            "Avoid bold letters, and omit any json or system details. This style is forbidden"
     }];
     // Send the request to the Bedrock model
     const command = new ConverseCommand({
