@@ -60,22 +60,22 @@ export default function Chat() {
   return (
 
     <div className="flex gap-2">
-      {/* {studentProfile && (
-        <div className='w-[40%] flex flex-col h-screen'>
-          <h2 className='text-white text-xl font-bold mb-4'>Profile Evaluation</h2>
-          <div className='flex-1 overflow-y-auto custom-scrollbar'>
-            <pre>{JSON.stringify(studentProfile, null, 2)}</pre>
-          </div>
-          {/* <div className='flex flex-wrap'>
-            {Object.keys(AspectsScores).map((aspect) => (
-              <div key={aspect} className={`w-48 mx-auto my-1 flex justify-between p-2 rounded-md ${colors[Math.floor(AspectsScores[aspect])]}`}>
-              <h3 className='text-white text-sm'>{aspect}</h3>
-              <p className='text-white text-sm'>{Number(AspectsScores[aspect]).toFixed(2)}</p>
-              </div>
-            ))}
-          </div> */}
-        </div>
-      )} */}
+      {studentProfile && ( <></>
+        // <div className='w-[40%] flex flex-col h-screen'>
+        //   <h2 className='text-white text-xl font-bold mb-4'>Profile Evaluation</h2>
+        //   <div className='flex-1 overflow-y-auto custom-scrollbar'>
+        //     <pre>{JSON.stringify(studentProfile, null, 2)}</pre>
+        //   </div>
+        //   {/* <div className='flex flex-wrap'>
+        //     {Object.keys(AspectsScores).map((aspect) => (
+        //       <div key={aspect} className={`w-48 mx-auto my-1 flex justify-between p-2 rounded-md ${colors[Math.floor(AspectsScores[aspect])]}`}>
+        //       <h3 className='text-white text-sm'>{aspect}</h3>
+        //       <p className='text-white text-sm'>{Number(AspectsScores[aspect]).toFixed(2)}</p>
+        //       </div>
+        //     ))}
+        //   </div> */}
+        // </div>
+      )}
       <div className='mx-auto w-full'>
         <div className="flex flex-col h-screen">
           <div className="flex-1 overflow-y-auto p-4 custom-scrollbar" ref={specificDivRef}>
