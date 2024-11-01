@@ -13,27 +13,6 @@ const client = new BedrockRuntimeClient({
 })
 const modelId = "us.meta.llama3-2-11b-instruct-v1:0"; // Model ID
 
-// let studentProfile: any = {
-//     "Language": null,
-//     "Name": null,
-//     "ScholarYear": null,
-//     "Location": null,
-//     "Age": null,
-//     "Gender": null,
-//     "Economy": null,
-    
-//     "CognitiveSkills": [],
-//     "Interests": [],
-//     "SoftSkills": [],
-//     "FavoriteSubjects": [],
-//     "WorkPreferences": [],
-//     "EconomicConstraints": [],
-//     "LearningStyle": [],
-//     "TechnologicalAffinity": []
-// };
-let questionsMade: string[] = [];
-let recommendationGiven: boolean = false;
-
 function missingAspects(studentProfile: any) {
     let aspectKey = null;
     for (const [key, value] of Object.entries(studentProfile)) {
@@ -52,17 +31,19 @@ function missingAspects(studentProfile: any) {
 async function basicProfileEvaluation(userText: string, missingAspect: string, studentProfile: any) {
     const instructions: any[] = [{
         role: "user",
-        content: [{'text':
-            "You are a text analyzer. You are given a system question and a user answer, and you need to analyze"+
-            " the text and extract from the user answer the information that fits to the following aspects \n"+
-            JSON.stringify(studentProfile)+
-            "\n For this extraction try to focus on the information related to: "+missingAspect+
-            "\n\n Here you have the information to analyze \n"+userText+
-            "\n\n For your response, reply with a json format text copying the aspects presented before, keep the"+
-            " values that are already established and append to the lists the new values recognized in the user response"+
-            "\n the values for name, location, language, gender, age and economy are strings, update them if the user answer give a new value"+
-            "\n Give me just the json profile with the new values. You are forbidden to add any details, comments, or markdown formatting"}]
-    
+        content: [{
+            'text':
+                "You are a text analyzer. You are given a system question and a user answer, and you need to analyze" +
+                " the text and extract from the user answer the information that fits to the following aspects \n" +
+                JSON.stringify(studentProfile) +
+                "\n For this extraction try to focus on the information related to: " + missingAspect +
+                "\n\n Here you have the information to analyze \n" + userText +
+                "\n\n For your response, reply with a json format text copying the aspects presented before, keep the" +
+                " values that are already established and append to the lists the new values recognized in the user response" +
+                "\n the values for name, location, language, gender, age and economy are strings, update them if the user answer give a new value" +
+                "\n Give me just the json profile with the new values. You are forbidden to add any details, comments, or markdown formatting"
+        }]
+
     }];
     const command = new ConverseCommand({
         modelId,
@@ -88,7 +69,7 @@ async function basicProfileEvaluation(userText: string, missingAspect: string, s
     //     rawText = assistantMessage.content?.[0].text ?? '';
     //     rawText = rawText.replaceAll("'", '"');
     // }
-    rawText = rawText.substring(rawText.indexOf("{"), rawText.lastIndexOf("}") + 1);
+    rawText = rawText.substring(rawText.indexOf("{"), rawText.indexOf("}") + 1);
     if (assistantMessage.content && assistantMessage.content[0]) {
         assistantMessage.content[0].text = rawText;
     }
@@ -102,7 +83,7 @@ async function basicProfileEvaluation(userText: string, missingAspect: string, s
         }
     }
     const missing = missingAspects(studentProfile);
-    if(missing == null){
+    if (missing == null) {
         return {
             "evaluation": evaluation,
             "question": "I have no more questions for you, let's start with the career guidance."
@@ -110,18 +91,19 @@ async function basicProfileEvaluation(userText: string, missingAspect: string, s
     }
     instructions.push({
         role: "user",
-        content: [{"text":"Perfect, now for getting more info, I need you to take a question for "+
-            "one of the aspects that are lacking in the evaluation. I just need the question, don't add details."+
-            "\nIn this case, the aspect that is lacking is: "+missing+" - Note: Name will be always a priority question"+
-            "\nHere you have the reference of the aspects, take one of the possible questions: "+JSON.stringify(reference[missing as keyof typeof reference])+
-            "\nAnd don't repeat this questions: " + questionsMade.join("\n -")
+        content: [{
+            "text": "Perfect, now for getting more info, I need you to take a question for " +
+                "one of the aspects that are lacking in the evaluation. I just need the question, don't add details." +
+                "\nIn this case, the aspect that is lacking is: " + missing + " - Note: Name will be always a priority question" +
+                "\nHere you have a reference, take one of the possible questions: " + JSON.stringify(reference[missing as keyof typeof reference])
+                + "\nIt is needed that you translate the question to the language of the student: " + studentProfile.Language
+            // +"\nAnd don't repeat this questions: " + questionsMade.join("\n -")
         }]
     });
     const suggestionsResponse = await client.send(command);
     const question = suggestionsResponse.output?.message?.content?.[0].text ?? '';
     console.log("Missing aspect: ", missing, " - question: ", question);
     console.log("Questions reference: ", reference[missing as keyof typeof reference]);
-    questionsMade.push(question);
     const evaluationResult = {
         "evaluation": evaluation,
         "question": question
@@ -136,12 +118,14 @@ async function createProfileAspects(studentProfile: any) {
     }
     const instructions: any[] = [{
         role: "user",
-        content: [{"text":"You are a psychologist that can help with vocational guidance. You are given with a student profile, "+
-            "and you need to provide a effective evaluation of different aspects that I will give you. "+
-            "\nHere you have the profile: "+JSON.stringify(studentProfile)+
-            "\nAnd the aspects that you need to evaluate: "+JSON.stringify(AspectsScores)+
-            "\n\nFor your evaluation, take each aspect and score it from 0 to 10, based on the profile of the student. "+
-            "\nGive me just a json object with the evaluation of the aspects. You are forbidden to add any details or comments, I need just the values in the json object"}]
+        content: [{
+            "text": "You are a psychologist that can help with vocational guidance. You are given with a student profile, " +
+                "and you need to provide a effective evaluation of different aspects that I will give you. " +
+                "\nHere you have the profile: " + JSON.stringify(studentProfile) +
+                "\nAnd the aspects that you need to evaluate: " + JSON.stringify(AspectsScores) +
+                "\n\nFor your evaluation, take each aspect and score it from 0 to 10, based on the profile of the student. " +
+                "\nGive me just a json object with the evaluation of the aspects. You are forbidden to add any details or comments, I need just the values in the json object"
+        }]
     }]
     const command = new ConverseCommand({
         modelId,
@@ -150,19 +134,21 @@ async function createProfileAspects(studentProfile: any) {
     });
     const response = await client.send(command);
     let rawText = response.output?.message?.content?.[0].text ?? '';
-    rawText = rawText.substring(rawText.indexOf("{"), rawText.lastIndexOf("}") + 1);
+    rawText = rawText.substring(rawText.indexOf("{"), rawText.indexOf("}") + 1);
+
     const aspectsEvaluation = JSON.parse(rawText);
-    
+
     return aspectsEvaluation;
 }
 // Define the conversation handler for Bedrock's "converse" functionality
 async function handleConversation(messages: any, question: string, studentProfile: any) {
-    
+
     // Add initial context message to guide the LLM's behavior
     const systemContext = {
         role: "user",
-        content: [{ 'text': "You are an AI assistant specialized in vocational guidance for students. Your goal is to help students explore their interests, skills, and career aspirations through conversation."+
-            "\n here you have the current profile of the student: "+JSON.stringify(studentProfile)
+        content: [{
+            'text': "You are an AI assistant specialized in vocational guidance for students. Your goal is to help students explore their interests, skills, and career aspirations through conversation." +
+                "\n here you have the current profile of the student: " + JSON.stringify(studentProfile)
         }]
     };
 
@@ -172,10 +158,11 @@ async function handleConversation(messages: any, question: string, studentProfil
     }));
 
     const userAnswer = conversation.slice(-1)[0].content[0].text;
-    conversation[conversation.length - 1].content = [{'text': "User answer: " + userAnswer+
-        "\n\nAnswer to the user in a brief tone, and you can continue with this content: '" + question+"'.\n"+
-        "If the question is personal, be careful with the tone and try to avoid being too intrusive. Example: “I'd also like to know, how do you identify in terms of gender? Feel free to share however you're comfortable!”"+
-        "Remember you are talking with the user, so act naturally and answer to the user with the provided question. Be as short and concise as possible."
+    conversation[conversation.length - 1].content = [{
+        'text': "User answer: " + userAnswer +
+            "\n\nPlease answer to the user continuing with the question: '" + question + "'.\n" +
+            "If the question is personal (gender, economic situation), be careful with the tone and try to avoid being too intrusive." +
+            "Remember you are talking with the student, be as short and concise as possible. Respond with normal text in markdown format. but omit any json or system details. Be brief."
     }];
     // Send the request to the Bedrock model
     const command = new ConverseCommand({
@@ -189,27 +176,29 @@ async function handleConversation(messages: any, question: string, studentProfil
     return message; // Return the properly formatted message
 }
 
-async function suggestCareers(messages: any[], aspectScores: any, studentProfile: any) {
+async function suggestCareers(messages: any[], studentProfile: any) {
     const conversation = messages.map((message: any) => ({
         role: message.role,
         content: [{ 'text': message.content }]
     }));
-    const instructions :any[] = [
+    const instructions: any[] = [
         {
             role: "assistant",
-            content: [{ 'text': "Ok, based in all the information you have, here you have a summary of the evaluation of the aspects: "+
-                JSON.stringify(aspectScores)+
-                "Does this summary fit to your profile?"
+            content: [{
+                'text': "Ok, based in all the information you have, here you have a summary of the evaluation of the student profile: " +
+                    JSON.stringify(studentProfile) +
+                    "Does this summary fit to your profile?"
             }]
-        },{
-        role: "user",
-        content: [{ 'text': 
-            "Yes, it's perfects! Now based in that summary, provide a brief summary of the evaluation and suggest 3-5 potential career paths that would be a good match." +
-            "\nFocus on careers that align with my strongest aspects." +
-            "\nKeep the response concise but informative, using bullet points for the career suggestions." +
-            "\nFormat the response in markdown. Give your answer in "+studentProfile.Language
-        }]
-    }];
+        }, {
+            role: "user",
+            content: [{
+                'text':
+                    "Yes, it's perfects! Now based in that summary, provide a brief summary of the evaluation and suggest 3-5 potential career paths that would be a good match." +
+                    "\nFocus on careers that align with my strongest aspects." +
+                    "\nKeep the response concise but informative, using bullet points for the career suggestions." +
+                    "\nFormat the response in markdown. Give your answer in " + studentProfile.Language
+            }]
+        }];
 
     const command = new ConverseCommand({
         modelId,
@@ -222,12 +211,20 @@ async function suggestCareers(messages: any[], aspectScores: any, studentProfile
     return marked.parse(rawText); // Convert markdown to HTML
 }
 
+
 async function chat(messages: any[], studentProfile: any) {
-    const conversation = messages.map((message: any) => ({
+    const conversation = [{
+        role: "user",
+        content: [{
+            'text': "You are an AI assistant specialized in vocational guidance for students. Your goal is to help students explore their interests, skills, and career aspirations through conversation." +
+                "\n here you have the current profile of the student: " + JSON.stringify(studentProfile) +
+                "\n\n from now on, you will be looking at the conversation history and you will answer to the student based on the information provided by the student and the profile."
+        }]
+    }, ...messages.map((message: any) => ({
         role: message.role,
         content: [{ 'text': message.content }]
-    }));
-    conversation[conversation.length - 1].content[0].text += "\n\n Give your answer in "+studentProfile.Language+" and be concise, format your answer with html tags.";
+    }))];
+    conversation[conversation.length - 1].content[0].text += "\n\n Give your answer in " + studentProfile.Language + " and be concise, format your answer with html tags.";
     const command = new ConverseCommand({
         modelId,
         messages: conversation,
@@ -246,38 +243,42 @@ export async function POST(req: Request) {
         content: ''
     };
     try {
-        const { messages, studentProfile } = await req.json();
+        const { messages, studentProfile, recommendationGiven } = await req.json();
+        let giveRecommendation = false;
         const lastTwoMessages = messages.slice(-2);
         
-        const userQA = `Question: ${lastTwoMessages[0].content}\n >>User Answer: ${lastTwoMessages[1].content}`;
+        const userQA = `Question: ${lastTwoMessages[0].content}\n >> User Answer: ${lastTwoMessages[1].content}`;
         const missing = missingAspects(studentProfile);
         console.log("Missing aspect: ", missing);
-        if(missing == null) {
-            if(!recommendationGiven){   
+        let newQuestion = null;
+        if (missing == null) {
+            if (!recommendationGiven) {
                 // evaluation of career traits
-                const aspectsEvaluation = await createProfileAspects(studentProfile);
-                console.log("Aspects evaluation: ", aspectsEvaluation);
+                // const aspectsEvaluation = await createProfileAspects(studentProfile);
+                // console.log("Aspects evaluation: ", aspectsEvaluation);
 
-                message.content = await suggestCareers(messages.slice(-7), aspectsEvaluation, studentProfile);  
-                recommendationGiven = true;
-            }else{
-                message.content = await chat(messages.slice(-11), studentProfile);
+                message.content = await suggestCareers(messages.slice(-7), studentProfile);
+                // message.content = await suggestCareers(messages.slice(-7), aspectsEvaluation, studentProfile);
+                giveRecommendation = true;
+            } else {
+                message.content = await chat(messages.slice(-10), studentProfile);
             }
-        }else{
+        } else {
             // ask for basic information
             const evaluation = await basicProfileEvaluation(userQA, missing, studentProfile);
             if (!evaluation) {
                 message.content = "Sorry, I didn't understand your response, can you give me more details.";
-                return new Response(JSON.stringify({"message": message, "evaluation": null, "profile": studentProfile}), { status: 200 });
+                return new Response(JSON.stringify({ "message": message, "profile": studentProfile, "is_question": false, "evaluation": giveRecommendation }), { status: 200 });
             }
             message.content = await handleConversation(messages.slice(-4), evaluation['question'], studentProfile);
+            newQuestion = evaluation['question'];
         }
-        
-        
-        return new Response(JSON.stringify({"message": message, "evaluation": null, "profile": studentProfile}));
+
+
+        return new Response(JSON.stringify({ "message": message, "profile": studentProfile, "evaluation": giveRecommendation }));
     } catch (error) {
         message.content = 'An error occurred while processing your request. Please try again later.';
         console.error("Error during chat invocation:", error);
-        return new Response(JSON.stringify({"message": message, "error": error, "evaluation": null, "profile": null}), { status: 500 });
+        return new Response(JSON.stringify({ "message": message, "profile": null }), { status: 500 });
     }
 }

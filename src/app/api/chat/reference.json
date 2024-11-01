@@ -2,8 +2,14 @@
     "Name": {
         "PossibleQuestion": "What is your name?"
     },
+    "ScholarYear": {
+        "PossibleQuestion": "What is your current academic level?"
+    },
     "Location": {
         "PossibleQuestion": "Awesome to meet you, [Name]! Where are you from?"
+    },
+    "Age": {
+        "PossibleQuestion": "How old are you?"
     },
     "Gender": {
         "PossibleQuestion": "I'd also like to know, how do you identify in terms of gender? Feel free to share however you're comfortable!"

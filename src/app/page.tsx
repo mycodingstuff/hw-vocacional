@@ -35,6 +35,8 @@ export default function Chat() {
   const [messages, setMessages] = useState(initialMessages);
   const [input, setInput] = useState('');
   const [studentProfile, setStudentProfile] = useState<StudentProfile | null>(null);
+  const [lastQuestion, setLastQuestion] = useState<string>("Do you prefer english or another language?");
+  const [recommendationGiven, setRecommendationGiven] = useState<boolean>(false); 
 
   useEffect(() => {
     setStudentProfile(
@@ -81,18 +83,41 @@ export default function Chat() {
 
     setIsTyping(true)
     const messagesCopy = [...messages];
-    messagesCopy.push({ id: crypto.randomUUID(), role: "user", content: `<p>${input}</p>` });
+    messagesCopy.push({ id: crypto.randomUUID(), role: "user", content: input });
     setMessages(messagesCopy);
     setInput('');
 
-    const response = await fetch('/api/chat', {
+    let response = await fetch('/api/chat', {
       method: 'POST',
-      body: JSON.stringify({ messages: messagesCopy, studentProfile: studentProfile })
+      body: JSON.stringify({ messages: messagesCopy, studentProfile: studentProfile, recommendationGiven: recommendationGiven })
     })
+    if (!response.ok) {
+      let retryCount = 0;
+      const maxRetries = 3;
+      
+      while (!response.ok && retryCount < maxRetries) {
+        console.log(`Retrying request (${retryCount + 1}/${maxRetries})...`);
+        response = await fetch('/api/chat', {
+          method: 'POST',
+          body: JSON.stringify({ messages: messagesCopy, studentProfile: studentProfile })
+        });
+        retryCount++;
+      }
+
+      if (!response.ok) {
+        console.error('Failed to get response after retries');
+        messagesCopy.push({ id: crypto.randomUUID(), role: "assistant", content: "<p>I'm sorry, but I'm having trouble processing your request. Please try again later.</p>" });
+        setIsTyping(false);
+        return;
+      }
+    }
     const aiMessage = await response.json();
     console.log(aiMessage);
     messagesCopy.push(aiMessage.message);
     setStudentProfile(aiMessage.profile);
+    if (aiMessage.evaluation) {
+      setRecommendationGiven(true);
+    }
     setMessages(messagesCopy);
     setIsTyping(false)
   }
@@ -118,12 +143,54 @@ export default function Chat() {
       )}
       <div className='mx-auto w-full'>
         <div className="flex flex-col h-screen">
-          <header className='flex justify-between items-center p-4 bg-transparent fixed top-0 w-full'>
+          <header className='flex justify-between items-start p-4 bg-transparent xl:fixed top-0 w-full mb-1 sm:mb-0 md:mb-[-100px]'>
             <div>
-              <Image src={Logo} alt="Company Logo" width={230} height={60} className="m-4 text-primary"></Image>
+              <div className="hidden sm:block">
+                <Image 
+                  src={Logo} 
+                  alt="Company Logo" 
+                  width={230} 
+                  height={40} 
+                  className="m-2 text-primary 
+                    sm:w-[140px] sm:h-[45px]
+                    md:w-[160px] md:h-[50px] 
+                    lg:w-[180px] lg:h-[60px]
+                    xl:w-[200px] xl:h-[65px]"
+                />
+              </div>
+              <div className="sm:hidden">
+                <Image
+                  src={Logo}
+                  alt="Company Logo" 
+                  width={150}
+                  height={40}
+                  className="m-2 text-primary"
+                />
+              </div>
             </div>
             <div>
-              <Image src={HackathonLogo} alt="Hackathon" width={230} height={60} className="m-4 text-primary" />
+              <div className='hidden sm:block'>
+                <Image 
+                src={HackathonLogo} 
+                alt="Hackathon" 
+                width={200} 
+                height={180} 
+                className="m-3 text-primary
+                  sm:w-[120px] sm:h-[100px]
+                  md:w-[135px] md:h-[120px]
+                  lg:w-[160px] lg:h-[140px]
+                  xl:w-[200px] xl:h-[180px]" 
+                />
+              </div>
+              <div className="sm:hidden">
+                <Image
+                  src={HackathonLogo}
+                  alt="Company Logo" 
+                  width={90}
+                  height={90}
+                  className="m-2 text-primary"
+                />
+              </div>
             </div>
           </header>
           <div className="flex-1 overflow-y-auto p-4 custom-scrollbar" ref={specificDivRef}>
