@@ -111,35 +111,37 @@ async function basicProfileEvaluation(userText: string, missingAspect: string, s
     return evaluationResult;
 }
 
-async function createProfileAspects(studentProfile: any) {
-    let AspectsScores: any = {};
-    for (const area in reference) {
-        AspectsScores[area] = Object.keys(reference[area as keyof typeof reference]);
-    }
-    const instructions: any[] = [{
-        role: "user",
-        content: [{
-            "text": "You are a psychologist that can help with vocational guidance. You are given with a student profile, " +
-                "and you need to provide a effective evaluation of different aspects that I will give you. " +
-                "\nHere you have the profile: " + JSON.stringify(studentProfile) +
-                "\nAnd the aspects that you need to evaluate: " + JSON.stringify(AspectsScores) +
-                "\n\nFor your evaluation, take each aspect and score it from 0 to 10, based on the profile of the student. " +
-                "\nGive me just a json object with the evaluation of the aspects. You are forbidden to add any details or comments, I need just the values in the json object"
-        }]
-    }]
-    const command = new ConverseCommand({
-        modelId,
-        messages: instructions,
-        inferenceConfig: { maxTokens: 1024, temperature: 0.5, topP: 0.9 },
-    });
-    const response = await client.send(command);
-    let rawText = response.output?.message?.content?.[0].text ?? '';
-    rawText = rawText.substring(rawText.indexOf("{"), rawText.indexOf("}") + 1);
+// async function createProfileAspects(studentProfile: any) {
+//     let AspectsScores: any = {};
+//     for (const area in reference) {
+//         AspectsScores[area] = Object.keys(reference[area as keyof typeof reference]);
+//     }
+//     const instructions: any[] = [{
+//         role: "user",
+//         content: [{
+//             "text": "You are a psychologist that can help with vocational guidance. You are given with a student profile, " +
+//                 "and you need to provide a effective evaluation of different aspects that I will give you. " +
+//                 "\nHere you have the profile: " + JSON.stringify(studentProfile) +
+//                 "\nAnd the aspects that you need to evaluate: " + JSON.stringify(AspectsScores) +
+//                 "\n\nFor your evaluation, take each aspect and score it from 0 to 10, based on the profile of the student. " +
+//                 "\nGive me just a json object with the evaluation of the aspects. You are forbidden to add any details or comments, I need just the values in the json object"
+//         }]
+//     }]
+//     const command = new ConverseCommand({
+//         modelId,
+//         messages: instructions,
+//         inferenceConfig: { maxTokens: 1024, temperature: 0.5, topP: 0.9 },
+//     });
+//     const response = await client.send(command);
+//     let rawText = response.output?.message?.content?.[0].text ?? '';
+//     rawText = rawText.substring(rawText.indexOf("{"), rawText.indexOf("}") + 1);
 
-    const aspectsEvaluation = JSON.parse(rawText);
+//     const aspectsEvaluation = JSON.parse(rawText);
 
-    return aspectsEvaluation;
-}
+//     return aspectsEvaluation;
+// }
+
+
 // Define the conversation handler for Bedrock's "converse" functionality
 async function handleConversation(messages: any, question: string, studentProfile: any) {
 
@@ -250,7 +252,6 @@ export async function POST(req: Request) {
         const userQA = `Question: ${lastTwoMessages[0].content}\n >> User Answer: ${lastTwoMessages[1].content}`;
         const missing = missingAspects(studentProfile);
         console.log("Missing aspect: ", missing);
-        let newQuestion = null;
         if (missing == null) {
             if (!recommendationGiven) {
                 // evaluation of career traits
@@ -271,7 +272,6 @@ export async function POST(req: Request) {
                 return new Response(JSON.stringify({ "message": message, "profile": studentProfile, "is_question": false, "evaluation": giveRecommendation }), { status: 200 });
             }
             message.content = await handleConversation(messages.slice(-4), evaluation['question'], studentProfile);
-            newQuestion = evaluation['question'];
         }
 
 

@@ -35,7 +35,6 @@ export default function Chat() {
   const [messages, setMessages] = useState(initialMessages);
   const [input, setInput] = useState('');
   const [studentProfile, setStudentProfile] = useState<StudentProfile | null>(null);
-  const [lastQuestion, setLastQuestion] = useState<string>("Do you prefer english or another language?");
   const [recommendationGiven, setRecommendationGiven] = useState<boolean>(false); 
 
   useEffect(() => {
