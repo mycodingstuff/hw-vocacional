@@ -5,6 +5,24 @@ import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { RiSendPlaneFill } from "react-icons/ri"
 
+interface StudentProfile {
+  Language: string | null;
+  Name: string | null;
+  ScholarYear: string | null;
+  Location: string | null;
+  Age: string | null;
+  Gender: string | null;
+  Economy: string | null;
+  CognitiveSkills: string[];
+  Interests: string[];
+  SoftSkills: string[];
+  FavoriteSubjects: string[];
+  WorkPreferences: string[];
+  EconomicConstraints: string[];
+  LearningStyle: string[];
+  TechnologicalAffinity: string[];
+}
+
 export default function Chat() {
   // Load initial messages from localStorage
   const initialMessages = typeof window !== 'undefined'
@@ -13,16 +31,35 @@ export default function Chat() {
   const specificDivRef = useRef<HTMLDivElement>(null);
   const [messages, setMessages] = useState(initialMessages);
   const [input, setInput] = useState('');
-  const [studentProfile, setStudentProfile] = useState(null);
-  
+  const [studentProfile, setStudentProfile] = useState<StudentProfile | null>(null);
+
   useEffect(() => {
+    setStudentProfile(
+      {
+        Language: null,
+        Name: null,
+        ScholarYear: null,
+        Location: null,
+        Age: null,
+        Gender: null,
+        Economy: null,
+
+        CognitiveSkills: [],
+        Interests: [],
+        SoftSkills: [],
+        FavoriteSubjects: [],
+        WorkPreferences: [],
+        EconomicConstraints: [],
+        LearningStyle: [],
+        TechnologicalAffinity: []
+      });
     setMessages([{
       id: crypto.randomUUID(),
-      role: 'assistant', 
-      content: '<p>Hello, I am a chatbot that can help you with vocational guidance. I hope to help you find your path.</p> <p>First,what is your name? Then, tell me if you are comfortable speaking english or would you prefer another language.</p>'
+      role: 'assistant',
+      content: '<p>Hello, I am a chatbot that can help you with vocational guidance. I hope to help you find your path.</p> <p>First, tell me if you are comfortable speaking english or would you prefer another language.</p>'
     }]);
   }, []);
-  
+
   useEffect(() => {
     if (specificDivRef.current) {
       specificDivRef.current.scrollTop = specificDivRef.current.scrollHeight;
@@ -41,13 +78,13 @@ export default function Chat() {
 
     setIsTyping(true)
     const messagesCopy = [...messages];
-    messagesCopy.push({ id: crypto.randomUUID(), role: "user", content: `<p>${input}</p>`});
+    messagesCopy.push({ id: crypto.randomUUID(), role: "user", content: `<p>${input}</p>` });
     setMessages(messagesCopy);
     setInput('');
 
     const response = await fetch('/api/chat', {
       method: 'POST',
-      body: JSON.stringify({ messages: messagesCopy })
+      body: JSON.stringify({ messages: messagesCopy, studentProfile: studentProfile })
     })
     const aiMessage = await response.json();
     console.log(aiMessage);
@@ -60,7 +97,7 @@ export default function Chat() {
   return (
 
     <div className="flex gap-2">
-      {studentProfile && ( <></>
+      {studentProfile && (<></>
         // <div className='w-[40%] flex flex-col h-screen'>
         //   <h2 className='text-white text-xl font-bold mb-4'>Profile Evaluation</h2>
         //   <div className='flex-1 overflow-y-auto custom-scrollbar'>
