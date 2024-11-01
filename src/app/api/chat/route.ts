@@ -80,7 +80,7 @@ async function basicProfileEvaluation(userText: string, missingAspect: string, s
     for (const aspect in evaluation) {
         if (evaluation[aspect] != null) {
             if (Array.isArray(evaluation[aspect])) {
-                studentProfile[aspect] = [...studentProfile[aspect], ...evaluation[aspect]];
+                studentProfile[aspect] = [...studentProfile[aspect], ...evaluation[aspect].filter((value: any) => studentProfile[aspect].indexOf(value) == -1)];
             } else {
                 studentProfile[aspect] = evaluation[aspect];
             }
