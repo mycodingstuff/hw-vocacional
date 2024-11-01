@@ -4,6 +4,9 @@
 import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { RiSendPlaneFill } from "react-icons/ri"
+import Image from 'next/image'
+import Logo from './HatchWorksAI.svg'
+import HackathonLogo from './hackathon.png'
 
 interface StudentProfile {
   Language: string | null;
@@ -56,7 +59,7 @@ export default function Chat() {
     setMessages([{
       id: crypto.randomUUID(),
       role: 'assistant',
-      content: '<p>Hello, I am a chatbot that can help you with vocational guidance. I hope to help you find your path.</p> <p>First, tell me if you are comfortable speaking english or would you prefer another language.</p>'
+      content: "<p>Hello, I am CareerPilot, and I'm here to help you with vocational guidance. I hope to help you find your path.</p> <p>First, tell me if you are comfortable speaking english or would you prefer another language.</p>"
     }]);
   }, []);
 
@@ -115,6 +118,14 @@ export default function Chat() {
       )}
       <div className='mx-auto w-full'>
         <div className="flex flex-col h-screen">
+          <header className='flex justify-between items-center p-4 bg-transparent fixed top-0 w-full'>
+            <div>
+              <Image src={Logo} alt="Company Logo" width={230} height={60} className="m-4 text-primary"></Image>
+            </div>
+            <div>
+              <Image src={HackathonLogo} alt="Hackathon" width={230} height={60} className="m-4 text-primary" />
+            </div>
+          </header>
           <div className="flex-1 overflow-y-auto p-4 custom-scrollbar" ref={specificDivRef}>
             <div className="max-w-2xl mx-auto">
               <AnimatePresence>
